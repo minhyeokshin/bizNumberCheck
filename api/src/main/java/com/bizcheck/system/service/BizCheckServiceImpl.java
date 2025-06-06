@@ -23,10 +23,11 @@ public class BizCheckServiceImpl implements BizCheckService {
         responseDTO.setBusinessNumber(requestDTO.getBusinessNumber());
 
         // 1. 국세청 사업자 검증
-//        if (!ntsBizCheckService.check(requestDTO)) {
-//            responseDTO.setValid(false);
-//            responseDTO.setMessage("국세청 계속사업자 검증 실패");
-//        }
+        if (!ntsBizCheckService.check(requestDTO)) {
+            responseDTO.setValid(false);
+            responseDTO.setMessage("국세청 계속사업자 검증 실패");
+            return responseDTO;
+        }
 
         // 2. OCR 사업자 번호 추출
         responseDTO.setOcrNumber(ocrService.performOcr(requestDTO));
