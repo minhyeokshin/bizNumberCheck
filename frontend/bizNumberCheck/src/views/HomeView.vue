@@ -56,7 +56,7 @@ const validateBusinessNumber = async () => {
     formData.append('businessNumber', businessNumber.value)
     formData.append('file', selectedFile.value)
 
-    const response = await axios.post('http://localhost:8080/api/bizCheck', formData, {
+    const response = await axios.post('http://43.201.38.199:8080/api/bizCheck', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
