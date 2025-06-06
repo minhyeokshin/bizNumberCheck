@@ -3,12 +3,14 @@ package com.bizcheck.system.service;
 import com.bizcheck.system.RequestDTO;
 import com.bizcheck.system.ResponseDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class BizCheckServiceImpl implements BizCheckService {
 
 
@@ -26,11 +28,13 @@ public class BizCheckServiceImpl implements BizCheckService {
         if (!ntsBizCheckService.check(requestDTO)) {
             responseDTO.setValid(false);
             responseDTO.setMessage("국세청 계속사업자 검증 실패");
+            responseDTO.setOcrNumber("국세청 사업자 검증 실패로 OCR 추출 안함");
             return responseDTO;
         }
 
         // 2. OCR 사업자 번호 추출
         responseDTO.setOcrNumber(ocrService.performOcr(requestDTO));
+        log.info(responseDTO.toString());
 
 
         // 3. GPT 사업자 번호 일치 검증
